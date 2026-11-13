@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dome Keeper Upgrade &amp; Gadget Reference</title>
+<style>
+  :root{
+    --bg:#15181d;
+    --panel:#1c2026;
+    --panel-2:#20252c;
+    --border:#2e343c;
+    --text:#dde2e8;
+    --text-dim:#8a929d;
+    --accent:#b0743c;
+    --primary:#8a929d;
+    --additional:#4878a8;
+    --laser:#c25f5f;
+    --sword:#9a5fc2;
+    --tesla:#4f9b8a;
+    --artillery:#b0743c;
+    --engineer:#4f9b8a;
+    --assessor:#4878a8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.45;
+  }
+  header{
+    padding:20px 24px 16px;
+    border-bottom:1px solid var(--border);
+  }
+  header h1{
+    margin:0 0 6px;
+    font-size:21px;
+  }
+  header p{
+    margin:0 0 4px;
+    color:var(--text-dim);
+    font-size:14px;
+    max-width:820px;
+  }
+  nav.tabs{
+    display:flex;
+    gap:8px;
+    padding:14px 24px 0;
+    border-bottom:1px solid var(--border);
+    background:var(--panel);
+  }
+  nav.tabs .tab{
+    padding:10px 16px;
+    font-size:13.5px;
+    color:var(--text-dim);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    user-select:none;
+  }
+  nav.tabs .tab.active{
+    color:var(--text);
+    border-bottom-color:var(--accent);
+  }
+  section{ display:none; }
+  section.active{ display:block; }
+  .controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:16px 24px;
+    border-bottom:1px solid var(--border);
+    background:var(--panel);
+  }
+  input[type="search"]{
+    flex:1;
+    min-width:200px;
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:8px 10px;
+    border-radius:6px;
+    font-size:14px;
+  }
+  .chip{
+    background:var(--panel-2);
+    border:1px solid var(--border);
+    color:var(--text-dim);
+    padding:7px 12px;
+    border-radius:6px;
+    font-size:13px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .chip.active{
+    color:var(--text);
+    border-color:var(--accent);
+  }
+  .table-wrap{
+    padding:16px 24px 50px;
+    overflow-x:auto;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  th, td{
+    text-align:left;
+    padding:8px 10px;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+  }
+  th{
+    color:var(--text-dim);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+  }
+  tbody tr:hover{
+    background:var(--panel);
+  }
+  .badge{
+    display:inline-block;
+    font-size:11px;
+    padding:2px 7px;
+    border-radius:4px;
+    border:1px solid currentColor;
+    white-space:nowrap;
+  }
+  .badge.Primary{ color:var(--primary); }
+  .badge.Additional{ color:var(--additional); }
+  .badge.Laser-Dome{ color:var(--laser); }
+  .badge.Sword-Dome{ color:var(--sword); }
+  .badge.Tesla-Dome{ color:var(--tesla); }
+  .badge.Artillery-Dome{ color:var(--artillery); }
+  .badge.Engineer{ color:var(--engineer); }
+  .badge.Assessor{ color:var(--assessor); }
+  .src-link{
+    color:var(--text-dim);
+    font-size:11px;
+  }
+  .src-link a{ color:var(--text-dim); }
+  .cell-note{
+    font-size:11.5px;
+    color:var(--text-dim);
+    margin-top:4px;
+  }
+  .snapshot-note{
+    font-size:12px;
+    color:var(--text-dim);
+    border-left:3px solid var(--border);
+    padding-left:10px;
+    margin:10px 24px;
+    max-width:820px;
+  }
+  .snapshot-note.warn{
+    border-left-color:var(--accent);
+  }
+  footer.sources{
+    padding:16px 24px 60px;
+    border-top:1px solid var(--border);
+    font-size:12px;
+    color:var(--text-dim);
+  }
+  footer.sources a{ color:var(--text-dim); }
+  footer.sources li{ margin-bottom:6px; }
+  .not-published{ color:var(--text-dim); font-style:italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Dome Keeper Upgrade &amp; Gadget Reference</h1>
+  <p>Mid-run and need the fast answer: what a gadget's base stats are, what a dome upgrade branch costs in Iron and what it changes, or what a keeper's tech tree gives you next.</p>
+</header>
+
+<div class="snapshot-note warn" id="site-note"></div>
+
+<nav class="tabs">
+  <div class="tab active" data-section="gadgets">Gadgets (26)</div>
+  <div class="tab" data-section="domes">Dome Upgrades</div>
+  <div class="tab" data-section="keepers">Keeper Upgrades</div>
+</nav>
+
+<section id="gadgets" class="active">
+  <div class="controls">
+    <input type="search" id="gadget-search" placeholder="Search gadget name, slot, or description..." />
+    <div class="chip active" data-type="All">All</div>
+    <div class="chip" data-type="Primary">Primary</div>
+    <div class="chip" data-type="Additional">Additional</div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Gadget</th>
+          <th>Type</th>
+          <th>Slot</th>
+          <th>Base Stats</th>
+          <th>Abilities / Supplement</th>
+        </tr>
+      </thead>
+      <tbody id="gadget-rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="domes">
+  <div class="controls">
+    <input type="search" id="dome-search" placeholder="Search dome upgrade, section, or stat..." />
+    <div class="chip active" data-dome="All">All</div>
+    <div class="chip" data-dome="Laser Dome">Laser</div>
+    <div class="chip" data-dome="Sword Dome">Sword</div>
+    <div class="chip" data-dome="Tesla Dome">Tesla</div>
+    <div class="chip" data-dome="Artillery Dome">Artillery</div>
+  </div>
+  <div id="dome-defaults" class="snapshot-note" style="margin-left:0;"></div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Dome</th>
+          <th>Section</th>
+          <th>Upgrade</th>
+          <th>Stats (as published)</th>
+          <th>Cost (Iron)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="dome-rows"></tbody>
+    </table>
+  </div>
+  <div id="dome-supplements" class="grid-section" style="padding:0 24px 40px;"></div>
+</section>
+
+<section id="keepers">
+  <div class="controls">
+    <input type="search" id="keeper-search" placeholder="Search keeper upgrade, section, or stat..." />
+    <div class="chip active" data-keeper="All">All</div>
+    <div class="chip" data-keeper="Engineer">Engineer</div>
+    <div class="chip" data-keeper="Assessor">Assessor</div>
+  </div>
+  <div id="keeper-overview" style="padding:0 24px;"></div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Keeper</th>
+          <th>Section</th>
+          <th>Upgrade</th>
+          <th>Stats (as published)</th>
+          <th>Cost (Iron)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="keeper-rows"></tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="sources">
+  Sources &amp; caveats:
+  <ul>
+    <li>Gadgets — <a href="https://domekeeper.wiki.gg/wiki/Gadgets" target="_blank" rel="noopener">domekeeper.wiki.gg/wiki/Gadgets</a> (live site returned HTTP 403/Cloudflare; read via <a href="https://web.archive.org/web/20260221062041/https://domekeeper.wiki.gg/wiki/Gadgets" target="_blank" rel="noopener">web.archive.org snapshot, 2026-02-21</a>, page history oldid=7049)</li>
+    <li>Dome upgrades — Laser (<a href="https://web.archive.org/web/20260420191920/https://domekeeper.wiki.gg/wiki/Laser_Dome" target="_blank" rel="noopener">archived 2026-04-20</a>), Sword (<a href="https://web.archive.org/web/20260306061723/https://domekeeper.wiki.gg/wiki/Sword_Dome" target="_blank" rel="noopener">archived 2026-03-06</a>), Tesla (<a href="https://web.archive.org/web/20260420191920/https://domekeeper.wiki.gg/wiki/Tesla_Dome" target="_blank" rel="noopener">archived 2026-04-20</a>), Artillery (<a href="https://web.archive.org/web/20260227123912/https://domekeeper.wiki.gg/wiki/Artillery_Dome" target="_blank" rel="noopener">archived 2026-02-27</a>) — Laser, Sword and Tesla dome pages are themselves marked work-in-progress wiki stubs</li>
+    <li>Keeper upgrades — Engineer (<a href="https://web.archive.org/web/20260221184044/https://domekeeper.wiki.gg/wiki/Engineer" target="_blank" rel="noopener">archived 2026-02-21</a>), Assessor (<a href="https://web.archive.org/web/20250903051558/https://domekeeper.wiki.gg/wiki/Assessor" target="_blank" rel="noopener">archived 2025-09-03</a>)</li>
+    <li>Keeper overview — <a href="https://web.archive.org/web/20251218141002/https://domekeeper.wiki.gg/wiki/Keepers" target="_blank" rel="noopener">domekeeper.wiki.gg/wiki/Keepers, archived 2025-12-18</a> — marked a stub ("Reason: clean up"); only documents Engineer and Assessor</li>
+    <li>Version context — <a href="https://web.archive.org/web/20260420191920/https://domekeeper.wiki.gg/wiki/Version_History" target="_blank" rel="noopener">Version History, archived 2026-04-20</a> — newest documented patch is v5.0.1 "The Lost Keepers Patch" (April 16, 2026), which added multiplayer and new keeper content not reflected in the Keepers/Gadgets pages above</li>
+  </ul>
+  <div>No wiki calculator/planner/database exists for Dome Keeper at time of writing — only Fandom mirrors and general guides, per Gate 2. Every cost figure above is in Iron (confirmed by counting "Iron Resource Icon.png" occurrences on each source page against its cost cells). Blanks are shown as "not published," never invented.</div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  const slug = s => s.replace(/\s+/g, "-");
+
+  // ---- Gadgets ----
+  const gadgetRowsEl = document.getElementById("gadget-rows");
+  const gadgetSearchEl = document.getElementById("gadget-search");
+  const typeChips = document.querySelectorAll(".chip[data-type]");
+  let activeType = "All";
+
+  function matchesGadgetSearch(g, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return g.name.toLowerCase().includes(q) || g.slot.toLowerCase().includes(q) || g.desc.toLowerCase().includes(q);
+  }
+
+  function formatStats(stats) {
+    return Object.entries(stats).map(([k, v]) => `${k}: ${v}`).join("<br>");
+  }
+
+  function renderGadgets() {
+    const q = gadgetSearchEl.value.trim();
+    const filtered = GADGETS.filter(g => (activeType === "All" || g.type === activeType) && matchesGadgetSearch(g, q));
+    gadgetRowsEl.innerHTML = "";
+    for (const g of filtered) {
+      const tr = document.createElement("tr");
+      let abilitiesHtml = "";
+      if (g.abilities && g.abilities.length) {
+        abilitiesHtml += g.abilities.map(a => `<b>${a.name}</b>: ${a.effect}`).join("<br>");
+      }
+      if (g.supplement) {
+        if (abilitiesHtml) abilitiesHtml += "<br>";
+        abilitiesHtml += `<b>Supplement — ${g.supplement.name}</b>: ${g.supplement.effect}`;
+      }
+      if (g.upgradeNote) {
+        abilitiesHtml += `<div class="cell-note">${g.upgradeNote}</div>`;
+      }
+      if (!abilitiesHtml) abilitiesHtml = '<span class="not-published">not published</span>';
+      tr.innerHTML = `
+        <td>${g.name}<div class="cell-note">${g.desc}</div><div class="src-link"><a href="${GADGET_SOURCE_ARCHIVE}" target="_blank" rel="noopener">source</a></div></td>
+        <td><span class="badge ${g.type}">${g.type}</span></td>
+        <td>${g.slot}</td>
+        <td>${formatStats(g.baseStats)}</td>
+        <td>${abilitiesHtml}</td>
+      `;
+      gadgetRowsEl.appendChild(tr);
+    }
+  }
+  gadgetSearchEl.addEventListener("input", renderGadgets);
+  typeChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      typeChips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      activeType = chip.dataset.type;
+      renderGadgets();
+    });
+  });
+
+  // ---- Dome upgrades ----
+  const domeRowsEl = document.getElementById("dome-rows");
+  const domeSearchEl = document.getElementById("dome-search");
+  const domeChips = document.querySelectorAll(".chip[data-dome]");
+  let activeDome = "All";
+
+  function matchesDomeSearch(u, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return u.upgrade.toLowerCase().includes(q) || u.section.toLowerCase().includes(q) || u.stats.toLowerCase().includes(q);
+  }
+
+  function renderDomes() {
+    const q = domeSearchEl.value.trim();
+    const filtered = DOME_UPGRADES.filter(u => (activeDome === "All" || u.dome === activeDome) && matchesDomeSearch(u, q));
+    domeRowsEl.innerHTML = "";
+    for (const u of filtered) {
+      const src = DOME_SOURCES[u.dome];
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><span class="badge ${slug(u.dome)}">${u.dome}</span><div class="src-link"><a href="${src.archive}" target="_blank" rel="noopener">source</a></div></td>
+        <td>${u.section}</td>
+        <td>${u.upgrade}</td>
+        <td>${u.stats}</td>
+        <td>${u.cost === "" || u.cost == null ? '<span class="not-published">not published</span>' : u.cost}</td>
+        <td>${u.notes || ""}</td>
+      `;
+      domeRowsEl.appendChild(tr);
+    }
+    const defaultsEl = document.getElementById("dome-defaults");
+    if (activeDome === "All") {
+      defaultsEl.textContent = "Select a dome above to see its default (unupgraded) stats.";
+    } else {
+      defaultsEl.innerHTML = `<b>${activeDome} default stats:</b> ${DOME_DEFAULTS[activeDome]}. <span class="src-link">(${DOME_SOURCES[activeDome].note})</span>`;
+    }
+    const suppEl = document.getElementById("dome-supplements");
+    suppEl.innerHTML = "";
+    const domesToShow = activeDome === "All" ? Object.keys(DOME_SUPPLEMENTS) : [activeDome];
+    for (const d of domesToShow) {
+      const s = DOME_SUPPLEMENTS[d];
+      if (!s) continue;
+      const div = document.createElement("div");
+      div.className = "snapshot-note";
+      div.style.marginLeft = "0";
+      div.innerHTML = `<b>${d} supplement — ${s.name}:</b> ${s.desc} <span class="cell-note">${s.stats}</span>`;
+      suppEl.appendChild(div);
+    }
+  }
+  domeSearchEl.addEventListener("input", renderDomes);
+  domeChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      domeChips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      activeDome = chip.dataset.dome;
+      renderDomes();
+    });
+  });
+
+  // ---- Keeper upgrades ----
+  const keeperRowsEl = document.getElementById("keeper-rows");
+  const keeperSearchEl = document.getElementById("keeper-search");
+  const keeperChips = document.querySelectorAll(".chip[data-keeper]");
+  let activeKeeper = "All";
+
+  function matchesKeeperSearch(u, q) {
+    if (!q) return true;
+    q = q.toLowerCase();
+    return u.upgrade.toLowerCase().includes(q) || u.section.toLowerCase().includes(q) || u.stats.toLowerCase().includes(q);
+  }
+
+  function renderKeepers() {
+    const q = keeperSearchEl.value.trim();
+    const filtered = KEEPER_UPGRADES.filter(u => (activeKeeper === "All" || u.keeper === activeKeeper) && matchesKeeperSearch(u, q));
+    keeperRowsEl.innerHTML = "";
+    for (const u of filtered) {
+      const src = KEEPER_SOURCES[u.keeper];
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><span class="badge ${u.keeper}">${u.keeper}</span><div class="src-link"><a href="${src.archive}" target="_blank" rel="noopener">source</a></div></td>
+        <td>${u.section}</td>
+        <td>${u.upgrade}</td>
+        <td>${u.stats}</td>
+        <td>${u.cost === "" || u.cost == null ? '<span class="not-published">not published</span>' : u.cost}</td>
+        <td>${u.notes || ""}</td>
+      `;
+      keeperRowsEl.appendChild(tr);
+    }
+    const overviewEl = document.getElementById("keeper-overview");
+    overviewEl.innerHTML = "";
+    const keepersToShow = activeKeeper === "All" ? KEEPERS : KEEPERS.filter(k => k.name === activeKeeper);
+    for (const k of keepersToShow) {
+      const div = document.createElement("div");
+      div.className = "snapshot-note";
+      div.style.marginLeft = "0";
+      div.innerHTML = `<b>${k.name}:</b> ${k.desc} <span class="cell-note">${k.availability}</span>`;
+      overviewEl.appendChild(div);
+    }
+  }
+  keeperSearchEl.addEventListener("input", renderKeepers);
+  keeperChips.forEach(chip => {
+    chip.addEventListener("click", () => {
+      keeperChips.forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      activeKeeper = chip.dataset.keeper;
+      renderKeepers();
+    });
+  });
+
+  document.getElementById("site-note").textContent = SITE_NOTE;
+
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+      document.getElementById(tab.dataset.section).classList.add("active");
+    });
+  });
+
+  renderGadgets();
+  renderDomes();
+  renderKeepers();
+</script>
+
+</body>
+</html>
